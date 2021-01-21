@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>LUSH</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    mobile_menu();
+});
+
+function mobile_menu(){
+    /* 변수 선언 */
+    var $menu = null;
+    var $left_gnb = null; // 영역 전체
+    var $depth1_wrap = null;
+    var $depth1 = null;
+    var $depth1_btn = null;
+    
+    /* 시작 함수 */
+    function start(){
+        init();
+        init_event();
+    }
+    /* 변수 초기화 함수 */
+    function init(){
+        $menu = $('.m_menu');
+        $left_gnb = $('.left_gnbWrap'); // 영역 전체
+        $depth1_wrap = $('.left_gnb>li');
+        $depth1 = $depth1_wrap.children('ul');
+        $depth1_btn = $depth1_wrap.children('a');
+    }
+    /* 이벤트 함수 */
+    function init_event(){
+        
+        /* 모바일 메뉴 버튼 클릭했을때 모바일 메뉴영역 나오게 하기 */
+        $menu.click(function(event){
+            event.preventDefault();
+            $left_gnb.addClass('on');
+        });
+        
+        /* x버튼 눌렀을때 모바일 메뉴 닫기 */
+        $('.close').click(function(event){
+            event.preventDefault();
+
+            $left_gnb.removeClass('on');
+            
+            // x버튼 누르면 시간차 약간두고 소메뉴 닫히게 하기
+            setTimeout(function(){
+                $depth1_btn.removeClass('on');
+                $depth1.slideUp();
+            },300)
+        });
+        
+        /* depth1의 각메뉴 클릭시 depth2 나오게 하기 */
+        $depth1_btn.click(function(event){
+            event.preventDefault();
+            var $this = $(this);
+            var $this_ul = $this.siblings('ul');
+
+            var check = $this.hasClass('on');
+            if(check){
+                $this.removeClass('on');
+                $this_ul.stop(true,true).slideUp();
+            }else{
+                $depth1_btn.removeClass('on');
+                $depth1.stop().slideUp();
+                $this.addClass('on');
+                $this_ul.stop(true,true).slideDown();
+            }
+        });
+        
+        /* 디바이스 크기 변경시 모바일 메뉴영역 숨기기 */
+        $(window).resize(function(){
+            $left_gnb.removeClass('on');
+        });
+    }
+    
+    start(); // 시작 호출
+}
+</script>
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+            <div class="top_header">
+                <div class="inner">
+                    <ul class="top_header_text">
+                        <li>로그인</li>
+                        <li>회원가입</li>
+                        <li>장바구니</li>
+                        <li>ENGLSH</li>
+                        <!-- space -->
+                    </ul>
+                </div>
+            </div>
+            <div class="botttom_header">
+                <div class="inner">
+                        <ul class="menu">
+                            <li>제품</li>
+                            <li>브랜드</li>
+                            <li>매장안내</li>
+                            <li>이벤트</li>
+                            <!-- space -->
+                        </ul>
+                    <div class="logo">
+                        <img src="img/logo.png" alt="로고">
+                    </div>
+                    <div class="sub_menu">
+                        <ul class="side">
+                            <li><i><img src="img/LUSH_main_pc_06.png" alt="Shops"></i>Shops</li>
+                            <li><i><img src="img/LUSH_main_pc_03.png" alt="Newsletter"></i>Newsletter</li>
+                        </ul>
+                        <div class="search">
+                            <div class="search">
+                                <img src="img/seach.png" alt="seacrch">
+                            </div>
+                        </div>
+                        <div class="m_menu">
+                            <a><img src="img/menu_ba.png" alt="menu_btn"></a>
+                        </div>
+                        <nav class="left_gnbWrap">
+                            <a href="#" class="close">close</a>
+                            <ul class="left_gnb">
+                                <li>
+                                    <a href="#">menu1</a>
+                                    <ul>
+                                        <li><a href="#">sub1</a></li>
+                                        <li><a href="#">sub2</a></li>
+                                        <li><a href="#">sub3</a></li>
+                                        <li><a href="#">sub4</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">menu2</a>
+                                    <ul>
+                                        <li><a href="#">sub1</a></li>
+                                        <li><a href="#">sub2</a></li>
+                                        <li><a href="#">sub3</a></li>
+                                        <li><a href="#">sub4</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">menu3</a>
+                                    <ul>
+                                        <li><a href="#">sub1</a></li>
+                                        <li><a href="#">sub2</a></li>
+                                        <li><a href="#">sub3</a></li>
+                                        <li><a href="#">sub4</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">menu4</a>
+                                    <ul>
+                                        <li><a href="#">sub1</a></li>
+                                        <li><a href="#">sub2</a></li>
+                                        <li><a href="#">sub3</a></li>
+                                        <li><a href="#">sub4</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!-- space -->
+                    </div>
+                    <!-- space -->
+                </div>
+            </div>
+        </header>
+        <main id="sub1-contents">
+           <section class="locations">
+               <div class="inner">
+                   <ul>
+                    <li>배쓰<i><img src="img/LUSH-sub_pc_03_01.png"></i></li>
+                    <li>샤워<i><img src="img/LUSH-sub_pc_03_01.png"></i></li>
+                    <li>보디<i><img src="img/LUSH-sub_pc_03_01.png"></i></li>
+                </ul>
+               </div>
+           </section>
+            <section class="titlebodyimage">
+                <h1 class="hidden">서브이미지</h1>
+                <h2>ABOUT LUSH</h2>
+                <h1>영국 프레쉬 핸드메이드 코스메틱</h1>
+                <h5>자연으로부터 얻은 신선한 재료와 동물실험을 하지 않은 정직한 재료를 사용, 공정하게 얻은<br> 원재료, 포장 최소화 등 다양한 캠페인 활동을 통해 기업 윤리와 신념을 알리고 있습니다.</h5>
+            </section>
+
+            <section class="goods_cons">
+                <h1 class="hidden">콘텐츠</h1>
+                <div class="goods_rate">
+                    <h2>WE BELIEVE</h2>
+                    <p>A LUSH LIFE</p>
+                </div>
+                <div class="goods_spec">
+                    <dl>
+                        <dt><i><img src="img/LUSH-sub_pc_111111_05.png" alt="채소"></i>신선함</dt>
+                        <dd>
+                            <ul>
+                                <li>•신선한 과일과 채소, 최상의 에센셜 오일<br>
+                                    •안전한 원료를 사용하여 효과적인 제품 생산</li>
+
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i><img src="img/LUSH-sub_pc_111111_08.png" alt="사람"></i>사람</dt>
+                        <dd>
+                            <ul>
+                                <li>•모든 사람이 자유롭게 이동<br>
+                                    •새로운 삶의 터전을 마련</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i><img src="img/LUSH-sub_pc_111111_10.png" alt="동물실험 반대"></i>동물실험 반대</dt>
+                        <dd>
+                            <ul>
+                                <li>•동물실험을 하지 않는 회사와 거래<br>
+                                    •인체에 직접 테스트 함으로써 안전한 제품 생산</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i><img src="img/LUSH-sub_pc_111111_15.png" alt="정직"></i>정직</dt>
+                        <dd>
+                            <ul>
+                                <li>•제품이 가진 올바른 가치를 제공<br>
+                                    •수익창출을 믿으며 고객이 항상 옳음</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i><img src="img/LUSH-sub_pc_111111_17.png" alt="최소한"></i>최소한</dt>
+                        <dd>
+                            <ul>
+                                <li>•회소한의 포장과 보존제를 사용, 베지테리언 원료 사용
+                                    <br>•제품이 만들어진 시기를 표시
+                                </li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <!-- :after으로 clear:both -->
+                </div>
+            </section>
+            <section class="goods_addDiscount">
+                <h1 class="hidden">제품 안내</h1>
+                <h3>제품 안내</h3>
+                <div class="goods_addDiscountspec">
+                    <div class="spce_l">
+                        <i class="i_smartgoldHd"><img src="img/LUSH-sub_pc_111111_21.png" alt="아티클"></i>
+                        <p class="txt1">아티클</p>
+                        <p class="txt2">러쉬브랜드와 제품이 가진<br>올바른 가치를 권합니다.</p>
+                        <p class="btnHD1">바로가기</p>
+                    </div>
+                    <div class="spce_r">
+                        <i class="i_smartgoldHd"><img src="img/LUSH-sub_pc_111111_24.png" alt="원재료"></i>
+                        <p class="txt1">원재료</p>
+                        <p class="txt2">최상의 재료들로<br>최상의 제품들을 만듭니다.</p>
+                        <p class="btnHD1">바로가기</p>
+                    </div>
+                    <!-- :after으로 clear:both -->
+                </div>
+            </section>
+        </main>
+        <!-- 여기까지 서브1 콘텐츠 -->
+
+        <!-- 여기부터 하단 -->
+        <footer id="footer">
+            <div class="top_footer">
+                <div class="inner">
+                    <ul>
+                        <li>스카우트</li>
+                        <li>회사소개</li>
+                        <li>개인정보처리방침</li>
+                        <li>영상정보관리지침</li>
+                        <li>이용약관</li>
+                        <li>개인정보</li>
+                        <!-- space -->
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom_footer">
+                <div class="inner">
+                    <div class="f_logo">
+                        <img src="img/LUSH_main_pc_81.png" alt="하단로고">
+                    </div>
+                    <div class="copyright">
+                        <ul>
+                            <li>주소<span>서울특별시 서초구 서운로 138</span></li>
+                            <li>대표자<span>우미령</span></li>
+                            <li>개인정보보보호책임자<span>우승용</span></li>
+                        </ul>
+                        <p>Copyright©LUSHKOREA co., Ltd. All rights reserved</p>
+                    </div>
+                    <div class="info">
+                        <p>고객센터<span>1644-2357</span></p>
+                        <!-- space-->
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- 여기까지 하단 -->
+    </div>
+</body>
+
+</html>

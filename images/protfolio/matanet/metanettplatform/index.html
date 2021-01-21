@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>메타넷티플랫폼</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/slick.css">
+    <link rel="stylesheet" type="text/css" href="css/slick-theme.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            mobile_menu();
+        });
+
+        function mobile_menu() {
+            /* 변수 선언 */
+            var $menu = null;
+            var $left_gnb = null; // 영역 전체
+            var $depth1_wrap = null;
+            var $depth1 = null;
+            var $depth1_btn = null;
+
+            /* 시작 함수 */
+            function start() {
+                init();
+                init_event();
+            }
+            /* 변수 초기화 함수 */
+            function init() {
+                $menu = $('.menu_bar');
+                $left_gnb = $('.left_gnbWrap'); // 영역 전체
+                $depth1_wrap = $('.left_gnb>li');
+                $depth1 = $depth1_wrap.children('ul');
+                $depth1_btn = $depth1_wrap.children('a');
+            }
+            /* 이벤트 함수 */
+            function init_event() {
+
+                /* 모바일 메뉴 버튼 클릭했을때 모바일 메뉴영역 나오게 하기 */
+                $menu.click(function(event) {
+                    event.preventDefault();
+                    $left_gnb.addClass('on');
+                });
+
+                /* x버튼 눌렀을때 모바일 메뉴 닫기 */
+                $('.close').click(function(event) {
+                    event.preventDefault();
+
+                    $left_gnb.removeClass('on');
+
+                    // x버튼 누르면 시간차 약간두고 소메뉴 닫히게 하기
+                    setTimeout(function() {
+                        $depth1_btn.removeClass('on');
+                        $depth1.slideUp();
+                    }, 300)
+                });
+
+                /* depth1의 각메뉴 클릭시 depth2 나오게 하기 */
+                $depth1_btn.click(function(event) {
+                    event.preventDefault();
+                    var $this = $(this);
+                    var $this_ul = $this.siblings('ul');
+
+                    var check = $this.hasClass('on');
+                    if (check) {
+                        $this.removeClass('on');
+                        $this_ul.stop(true, true).slideUp();
+                    } else {
+                        $depth1_btn.removeClass('on');
+                        $depth1.stop().slideUp();
+                        $this.addClass('on');
+                        $this_ul.stop(true, true).slideDown();
+                    }
+                });
+
+                /* 디바이스 크기 변경시 모바일 메뉴영역 숨기기 */
+                $(window).resize(function() {
+                    $left_gnb.removeClass('on');
+                });
+            }
+
+            start(); // 시작 호출
+        }
+    </script>
+
+    <script src="js/jquery-v1.10.2.js" type="text/javascript"></script>
+    <link href="css/flickerplate.css" type="text/css" rel="stylesheet">
+    <script src="js/flickerplate.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('.flicker-example').flicker();
+        });
+    </script>
+
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 200) {
+                    $('.top').fadeIn();
+                } else {
+                    $('.top').fadeOut();
+                }
+            });
+            $('.top').click(function() {
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 400);
+                return false;
+            });
+        });
+    </script>
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+            <div class="inner">
+                <div class="logo">
+                    <img src="img/logo.png" alt="로고">
+                </div>
+                <ul class="menu">
+                    <li><a href="#">Hybrid Services</a>
+                        <ul class="submenu">
+                            <li><a href="sub_index.html">Professional Service</a></li>
+                            <li><a href="sub_index.html">IT Infra</a></li>
+                            <li><a href="sub_index.html">Data & AI</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">platform</a>
+                        <ul class="submenu">
+                            <li><a href="sub_index.html">Microsoft</a></li>
+                            <li><a href="sub_index.html">Red Hat</a></li>
+                            <li><a href="sub_index.html">VMware</a></li>
+                            <li><a href="sub_index.html">IBM</a></li>
+                            <li><a href="sub_index.html">Computing/NW</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Solution</a>
+                        <ul class="submenu">
+                            <li><a href="sub_index.html">Security</a></li>
+                            <li><a href="sub_index.html">Backup</a></li>
+                            <li><a href="sub_index.html">Infra management</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Resource</a>
+                        <ul class="submenu">
+                            <li><a href="sub_index.html">Reference</a></li>
+                            <li><a href="sub_index.html">Tech Blog</a></li>
+                            <li><a href="sub_index.html">Event</a></li>
+                            <li><a href="sub_index.html">Video</a></li>
+                            <li><a href="sub_index.html">Newsroom</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">About us</a>
+                        <ul class="submenu">
+                            <li><a href="sub_index.html">Overview</a></li>
+                            <li><a href="sub_index.html">Mission</a></li>
+                            <li><a href="sub_index.html">윤리경영</a></li>
+                            <li><a href="sub_index.html">Career</a></li>
+                            <li><a href="sub_index.html">Contact Us</a></li>
+                        </ul>
+                    </li>
+                    <!-- space -->
+                </ul>
+                <div class="m_right">
+                    <ul class="sub_menu">
+                        <li>KR</li>
+                        <li>EN</li>
+                    </ul>
+                    <div class="menu_bar">
+                        <a href="#"><img src="img/menubar.png" alt="메뉴바"></a>
+                    </div>
+                </div>
+                <nav class="left_gnbWrap">
+                    <a href="#" class="close">close</a>
+                    <ul class="left_gnb">
+                        <li>
+                            <a href="#">Hybrid Services</a>
+                            <ul>
+                                <li><a href="sub_index.html">Professional Service</a>
+                                </li>
+                                <li><a href="sub_index.html">IT Infra</a></li>
+                                <li><a href="sub_index.html">Data & AI</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Platform</a>
+                            <ul>
+                                <li><a href="sub_index.html">Microsoft</a></li>
+                                <li><a href="sub_index.html">Red Hat</a></li>
+                                <li><a href="sub_index.html">VMware</a></li>
+                                <li><a href="sub_index.html">IBM</a></li>
+                                <li><a href="sub_index.html">Computing/NW</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Solution</a>
+                            <ul>
+                                <li><a href="sub_index.html">Security</a></li>
+                                <li><a href="sub_index.html">Backup</a></li>
+                                <li><a href="sub_index.html">Infra management</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Resource</a>
+                            <ul>
+                                <li><a href="sub_index.html">Reference</a></li>
+                                <li><a href="sub_index.html">Tech Blog</a></li>
+                                <li><a href="sub_index.html">Event</a></li>
+                                <li><a href="sub_index.html">Video</a></li>
+                                <li><a href="sub_index.html">Newsroom</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">About us</a>
+                            <ul>
+                                <li><a href="sub_index.html">Overview</a></li>
+                                <li><a href="sub_index.html">Mission</a></li>
+                                <li><a href="sub_index.html">윤리경영</a></li>
+                                <li><a href="sub_index.html">Career</a></li>
+                                <li><a href="sub_index.html">Contact Us</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <article id="mainimg">
+            <h1 class="hidden">메인이미지</h1>
+            <div class="flicker-example" data-block-text="false">
+
+                <ul>
+
+                    <li>
+
+                    </li>
+
+                    <li>
+
+                    </li>
+
+                    <li>
+
+                    </li>
+                </ul>
+
+            </div>
+        </article>
+        <section class="contents">
+            <div class="contents1">
+                <div class="inner">
+                    <h3>Hybrid Service</h3>
+                    <h1>고객의 상황에 맞춰 최적의 클라우드 경험을 제공합니다.</h1>
+                    <div class="contents1_set">
+                        <div class="contents1_left">
+                            <div><img src="img/End%20to%20End.png" alt="엔드투엔드프로페셔널서비스"></div>
+                            <h2>End to End professional Services</h2>
+                            <p>국내 유일 End to End 클라우드 프로세스<br>전 영역 서비스</p>
+                        </div>
+                        <div class="contents1_cen">
+                            <div> <img src="img/Hybird.png" alt="하이브리드인프라>"></div>
+                            <h2>Hybird IT infra</h2>
+                            <p>온프레미스부터 클라우드 구축, 보안까지 통합 제공</p>
+                        </div>
+                        <div class="contents1_right">
+                            <div> <img src="img/Data&AI.png" alt="데이타앤에이아이"></div>
+                            <h2>Data & AI</h2>
+                            <p>국내 선도 데이타 전문가와 함께 디지털<br>트랜스포메이션 가속</p>
+                        </div>
+                        <!-- space -->
+                    </div>
+                </div>
+            </div>
+             </section>
+            <div class="contents2">
+                <div class="inner">
+                    <h3>Alliances</h3>
+                    <h1>폭넓은 얼라이언스를 기반으로<br>Best-of-Breed 솔루션을 제공합니다.</h1>
+                    <div class="contents2_top">
+                        <ul>
+                            <li>
+                                <img src="img/microsoft.png" alt="마이크로소프트">
+                            </li>
+                            <li><img src="img/ibm.png" alt="아이비엠"></li>
+                            <li><img src="img/dell.png" alt="델테크놀로지스"></li>
+                            <li><img src="img/redhat.png" alt="레드햇"></li>
+                            <!-- space -->
+                        </ul>
+                    </div>
+                    <div class="contents2_bottom">
+                        <ul>
+                            <li><img src="img/veritas.png" alt="베리타스"></li>
+                            <li><img src="img/datdog.png" alt="데이터독"></li>
+                            <li><img src="img/fortinet.png" alt="포티넷"></li>
+                            <li><img src="img/fireeye.png" alt="파이어아이"></li>
+                            <!-- space -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="contents3">
+                <div class="inner">
+                    <h3>Resources</h3>
+                    <h1>메타넷티플랫폼과 고객이 함께 만들어가는 이야기</h1>
+                    <div class="contents3_set">
+                        <div class="contents3_left">
+                            <img src="img/techblog.png" alt="태그블로그">
+                            <h5>Tech Blog</h5>
+                            <h3>Azure Virtual WAN이란?</h3>
+                            <p>Azure Virtual WAN은 많은 네트워킹, 보안 및 라우팅<br>기능을 결합하여 단일 운영 인터페이스를 제공합니다.</p>
+                        </div>
+                        <div class="contents3_cen">
+                            <img src="img/sgi.png" alt="고객사례">
+                            <h5>고객사례</h5>
+                            <h3>유연한 자원관리 시스템 구축한<br>SGI서울보증</h3>
+                            <p>SGI서울보증보험 가상화 기반의 서버환경 구축<br>CUstomer profileSGI 서울 보증 잔액 341조원을...</p>
+                        </div>
+                        <div class="contents3_right">
+                            <img src="img/video.png" alt="비디오">
+                            <h5>Video</h5>
+                            <h3>컨설턴트와 IT엔지니어가 제안하는<br>디지털워크플레이스(DWP)</h3>
+                            <p>코로나19로 더욱 가속화되고 있는 디지털워크플레이스<br>(DWP) 하지만 아직도 많은 기업들이 DWP에 적응하고...</p>
+                        </div>
+                        <!-- space -->
+                    </div>
+                </div>
+            </div>
+            <div class="banner_set">
+                <h1>메타넷티플랫폼 전문가와 만나보세요</h1>
+                <p>Contact us</p>
+            </div>
+        </main>
+        <footer id="footer">
+            <div class="top_footer">
+                <div class="inner">
+                    <ul>
+                        <li>개인정보처리방침</li>
+                        <li>이메일무단수집거부</li>
+                        <li>윤리경영</li>
+                        <li>회사소개</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom_footer">
+                <div class="inner">
+                    <ul>
+                        <li>(주)메타넷티플랫폼 | 주소 : 서울 종로구 종로 33길 (연지동, 연강빌딩)</li>
+                        <li>Tel : 02-3218-6300 | Fax : 02-518-1969</li>
+                        <li>Copyright © 2020 Metanet Tplatform. All Right Reserved.</li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+
+        <div class="quick_menu">
+            <ul>
+                <li><img src="img/quickmenu.png" alt="퀵메뉴상담">
+                </li>
+                <li><a href="#" class="top"><img src="img/talk.png" alt="상단버튼"></a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</body></html>
