@@ -1,746 +1,522 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>이민주</title>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js">
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUSH</title>
+
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/slick.css">
+    <link rel="stylesheet" type="text/css" href="css/slick-theme.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
+
     <script>
-        $(document).ready(function(e) {
-            $('#navigation li>a').on('click', function(e) {
-                e.preventDefault();
-                $('html, body').animate({
-                    scrollTop: $(this.hash).offset().top
-                }, 800);
-                return false;
-            });
+        $(document).ready(function() {
+            mobile_menu();
+        });
+
+        function mobile_menu() {
+            /* 변수 선언 */
+            var $menu = null;
+            var $left_gnb = null; // 영역 전체
+            var $depth1_wrap = null;
+            var $depth1 = null;
+            var $depth1_btn = null;
+
+            /* 시작 함수 */
+            function start() {
+                init();
+                init_event();
+            }
+            /* 변수 초기화 함수 */
+            function init() {
+                $menu = $('.m_menu');
+                $left_gnb = $('.left_gnbWrap'); // 영역 전체
+                $depth1_wrap = $('.left_gnb>li');
+                $depth1 = $depth1_wrap.children('ul');
+                $depth1_btn = $depth1_wrap.children('a');
+            }
+            /* 이벤트 함수 */
+            function init_event() {
+
+                /* 모바일 메뉴 버튼 클릭했을때 모바일 메뉴영역 나오게 하기 */
+                $menu.click(function(event) {
+                    event.preventDefault();
+                    $left_gnb.addClass('on');
+                });
+
+                /* x버튼 눌렀을때 모바일 메뉴 닫기 */
+                $('.close').click(function(event) {
+                    event.preventDefault();
+
+                    $left_gnb.removeClass('on');
+
+                    // x버튼 누르면 시간차 약간두고 소메뉴 닫히게 하기
+                    setTimeout(function() {
+                        $depth1_btn.removeClass('on');
+                        $depth1.slideUp();
+                    }, 300)
+                });
+
+                /* depth1의 각메뉴 클릭시 depth2 나오게 하기 */
+                $depth1_btn.click(function(event) {
+                    event.preventDefault();
+                    var $this = $(this);
+                    var $this_ul = $this.siblings('ul');
+
+                    var check = $this.hasClass('on');
+                    if (check) {
+                        $this.removeClass('on');
+                        $this_ul.stop(true, true).slideUp();
+                    } else {
+                        $depth1_btn.removeClass('on');
+                        $depth1.stop().slideUp();
+                        $this.addClass('on');
+                        $this_ul.stop(true, true).slideDown();
+                    }
+                });
+
+                /* 디바이스 크기 변경시 모바일 메뉴영역 숨기기 */
+                $(window).resize(function() {
+                    $left_gnb.removeClass('on');
+                });
+            }
+
+            start(); // 시작 호출
+        }
+
+    </script>
+
+    <script src="js/jquery-v1.10.2.js" type="text/javascript"></script>
+    <link href="css/flickerplate.css" type="text/css" rel="stylesheet">
+    <script src="js/flickerplate.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('.flicker-example').flicker();
         });
 
     </script>
-    <script src="js/ScrollTrigger.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var trigger = new ScrollTrigger({
-                addHeight: true
-            });
-        });
-
-    </script>
-
-    <style>
-        .fromBottomIn {
-            transition: all 0.8s;
-            transform: translate(0, 0);
-            opacity: 1;
-        }
-
-        .fromBottomOut {
-            transition: all 1s;
-            transform: translate(0, 100px);
-            opacity: 0;
-        }
-
-    </style>
-    <!-- mobile responsive meta -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <!-- ** Plugins Needed for the Project ** -->
-    <link rel="stylesheet" href="js/aos.css">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
-    <!-- slick slider -->
-    <link rel="stylesheet" href="plugins/slick/slick.css">
-    <!-- themefy-icon -->
-    <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css">
-
-    <!-- Main Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
-
-    <!--Favicon-->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/normalize.min.css">
-    <link rel="stylesheet" href="css/animate.min.css">
-
-    <style>
-        #btn-close-modal {
-            right: 5%;
-            cursor: pointer;
-            position: absolute;
-            z-index: 999;
-            padding-top: 50px;
-        }
-
-    </style>
-
 </head>
 
 <body>
-    <div class="site-wrap" id="home-section">
-
-        <div class="site-mobile-menu site-navbar-target">
-            <div class="site-mobile-menu-header">
-                <div class="site-mobile-menu-close mt-3">
-                    <span class="icon-close2 js-menu-toggle"></span>
+    <div id="wrap">
+        <header id="header">
+            <div class="top_header">
+                <div class="inner">
+                    <ul class="top_header_text">
+                        <li>로그인</li>
+                        <li>회원가입</li>
+                        <li>장바구니</li>
+                        <li>ENGLSH</li>
+                        <!-- space -->
+                    </ul>
                 </div>
             </div>
-
-            <header class="navigation fixed-top">
-                <nav class="navbar navbar-expand-lg navbar-dark">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-
-                    <div class="collapse navbar-collapse text-center" id="navigation">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#box1">HOME</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#box2">ABOUT</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#box3">PROTFOLIO</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#box4">VISUAL</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#box5">FOOTER</a>
-                            </li>
+            <div class="botttom_header_1">
+                <div class="inner">
+                    <ul class="menu">
+                        <li><a href="sub_index.html">제품</a></li>
+                        <li><a href="sub_index.html">브랜드</a></li>
+                        <li><a href="sub_index.html">매장안내</a></li>
+                        <li><a href="sub_index.html">이벤트</a></li>
+                        <!-- space -->
+                    </ul>
+                    <div class="logo">
+                        <img src="img/logo.png" alt="로고">
+                    </div>
+                    <div class="sub_menu">
+                        <ul class="side">
+                            <li><i><img src="img/LUSH_main_pc_06.png" alt="Shops"></i>Shops</li>
+                            <li><i><img src="img/LUSH_main_pc_03.png" alt="Newsletter"></i>Newsletter</li>
                         </ul>
+                        <div class="search">
+                            <div class="search">
+                                <img src="img/seach.png" alt="seacrch">
+                            </div>
+                        </div>
+                        <div class="m_menu">
+                            <a href="#"><img src="img/LUSH_main_mo_menubar.jpg" alt="menu_btn"></a>
+                        </div>
+                        <nav class="left_gnbWrap">
+                            <a href="#" class="close">close</a>
+                            <ul class="left_gnb">
+                                <li>
+                                    <a href="#">배쓰</a>
+                                    <ul>
+                                        <li><a href="#">배쓰밤</a></li>
+                                        <li><a href="#">버블 바</a></li>
+                                        <li><a href="#">배쓰 오일</a></li>
+                                        <li><a href="#">젤리밤</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">샤워</a>
+                                    <ul>
+                                        <li><a href="#">솝</a></li>
+                                        <li><a href="#">샤워 젤 & 젤리</a></li>
+                                        <li><a href="#">보디 컨디셔너</a></li>
+                                        <li><a href="#">샤워 오일</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">보디</a>
+                                    <ul>
+                                        <li><a href="#">클렌저</a></li>
+                                        <li><a href="#">로션</a></li>
+                                        <li><a href="#">핸드 앤 풋</a></li>
+                                        <li><a href="#">마시지바</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">페이스</a>
+                                    <ul>
+                                        <li><a href="#">페이스 마스크</a></li>
+                                        <li><a href="#">토너</a></li>
+                                        <li><a href="#">모이스춰라이저</a></li>
+                                        <li><a href="#">프라이머</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!-- space -->
                     </div>
-                </nav>
-            </header>
-        </div>
-    </div>
-    <div class="ftco-blocks-cover-1" id="box1">
-        <div class="site-section-cover half-bg">
-            <div class="container">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-lg-8">
-                        <marquee behavior="slide" scrollamount="60">
-                            <h1 class="mb-5 text-primary font-weight-bold" style="width: auto">HELLO!<br>WELCOME TO<br> MY PORTFOLIO</h1>
-                        </marquee>
-                    </div>
+                    <!-- space -->
                 </div>
             </div>
-        </div>
-    </div>
+        </header>
+        <article id="mainimg">
+            <h1 class="hidden">메인이미지</h1>
+            <div class="flicker-example" data-block-text="false">
 
-    <!-- testimonial -->
-    <section class="section bg-primary position-relative testimonial-bg-shapes" id="box2" data-scroll="toggle(.fromBottomIn, .fromBottomOut) once">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h2 class="section-title text-black mb-5">SELF-INTRODUCTION</h2>
+                <ul>
+
+                    <li>
+
+                    </li>
+
+                    <li>
+
+                    </li>
+
+                    <li>
+
+                    </li>
+                </ul>
+
+            </div>
+        </article>
+        <main id="contents">
+            <section class="best_set">
+                <h1 class="hidden">BEST 상품</h1>
+                <div class="besttitle">
+                    <h2>BEST 상품</h2>
+                    <p>한 주 동안 가장 사랑받은 제품이에요.</p>
                 </div>
-                <div class="col-lg-10 mx-auto testimonial-slider">
-                    <!-- slider-item -->
-                    <div class="text-center testimonial-content">
-                        <i class="ti-quote-right text-black icon mb-4 d-inline-block"></i>
-                        <p class="text-black mb-4">다른 일에 도전하기에 늦었다고 생각했습니다.<br> 그래서 웹디자이너라는 새로운 도전을 앞두고 내가 잘 할 수 있을까 하는 의문과 겁이 많이 났습니다.<br> 그러나 교육을 들으면서 이 분야에 많은 흥미가 생기고, 또 제가 창출해낸 결과물들을 보니 성취감이 매우 컸습니다. <br>조금 더 빨리 시작하지 않았음을 후회했고 흘러간 시간이 아깝다고 생각했습니다. 그래서 저는, <br> 이 마음을 소중히 여기여 앞으로 많은 것들을 보고 생각하고 그러므로 가지는 시각을 더 키워<br> 더욱 만족스러운 디자인, 결과물을 만들어야 내야겠다고 생각했습니다.<br> 저는 머물러 있지 않고 늘 성장하는 사람이 되겠습니다.</p>
-                        <img class="img-fluid_1 rounded-circle mb-4 d-inline-block" src="images/testimonial/leeminju.png" alt="client-image">
-                        <h4 class="text-black">이민주</h4>
-                        <h6 class="text-light mb-4">Web Desginer</h6>
+                <section class="regular slider">
+                    <div>
+                        <img src="img/LUSH_main_pc_07.png" alt="코스메틱워리어">
                     </div>
-                    <!-- slider-item -->
-                    <div class="text-center testimonial-content">
-                        <i class="ti-quote-right text-black icon mb-4 d-inline-block"></i>
-                        <p class="text-black mb-4">저는 사람들과 만나 이야기 나누는 것을 좋아합니다. <br> 자전거를 타고 바다에 가는 것을 좋아하고 잔잔한 강과 일몰, 밤하늘을 좋아합니다.<br> 주변 사람들에게 마음을 전하는 일을 좋아하고 배려하는 것을 좋아합니다.<br> 여러 가지 경험해 보는 것을 좋아하고 늘 궁금한 것들이 많아 그에 따른 해답을 찾는 것을 좋아합니다.<br>활발하고 웃음이 많으며 책임감이 강하여 언제나 주어진 시간과 일에 최선을 다하는 것을 좋아합니다.<br>이렇게 좋아하는 것들이 많은 저는 누구나 다 좋아하는 그런 사람이 되고 싶습니다.</p>
-                        <img class="img-fluid_1 rounded-circle mb-4 d-inline-block" src="images/testimonial/leeminju2.png">
-                        <h4 class="text-black">이민주</h4>
-                        <h6 class="text-light mb-4">26살</h6>
+                    <div>
+                        <img src="img/LUSH_main_pc_09_03.png" alt="마스크오브매그너민티">
                     </div>
+                    <div>
+                        <img src="img/LUSH_main_pc_11_03.png" alt="카타스트로피">
+                    </div>
+                    <div>
+                        <img src="img/LUSH_main_pc-copy_03.png" alt="트와일라잇">
+                    </div>
+                    <div>
+                        <img src="img/LUSH_main_pc-copy_05.png" alt="플라이웨이헤어">
+                    </div>
+                    <div>
+                        <img src="img/LUSH_main_pc-copy_07.png" alt="나나">
+                    </div>
+                </section>
+
+                <div class="bestdata">
+                    <div class="data_box">
+                        <div class="data_box_1">
+                            <h4>가격</h4>
+                            <h2>25,000</h2>
+                        </div>
+                        <div class="data_box_2">
+                            <h4>제품성분</h4>
+                            <div>
+                                <img src="img/LUSH_main_pc_34.png" alt="청포도">
+                                <p>청포도</p>
+                            </div>
+                            <div>
+                                <img src="img/LUSH_main_pc_39.png" alt="꿀">
+                                <p>꿀</p>
+                            </div>
+                            <div>
+                                <img src="img/LUSH_main_pc_41.png" alt="두부">
+                                <p>두부</p>
+                            </div>
+                            <div>
+                                <img src="img/LUSH_main_pc_36.png" alt="티트리">
+                                <p>티트리</p>
+                            </div>
+                            <!-- space -->
+                        </div>
+                        <div class="data_box_3">
+                            <h4>미리 써본 후기</h4>
+                            <p>환경이 바뀔 때면 금방 뿔이 나는 제 피부,<br>
+                                그런 제게 신세계를 열어준 제품이에요.<br>
+                                마음마저 건강하게 가꿔줄 것만 같은 티트리와<br>
+                                두부의 조합, 제겐 없어서는 안 될 아이템이에요.</p>
+                        </div>
+                        <div class="data_box_4">
+                            <h4>제품<br>바로가기</h4>
+                        </div>
+                        <!-- space -->
+                    </div>
+                </div>
+            </section>
+            <section class="bannerset">
+                <div class="bannerset_left">
+                    <div class="bannerset_left_text">
+                        <h4>러쉬 스파 트리트먼트</h4>
+                        <h2>LUSH SPA<br>TREATMENTS</h2>
+                        <p>옛것을 소중히 여기는 영국의 전통과 아름다운 자연에서 영감을 받은 영국 전통 스파.<br>
+                            오감을 깨워 몸과 마음에 진정한 휴식을 선사합니다.</p>
+                    </div>
+                </div>
+                <div class="bannerset_right">
+                    <div class="inner">
+                        <div>
+                            <img src="img/LUSH_main_pc_48.png" alt="에너지스파트리트먼트">
+                            <h5>에너지 스파 트리트먼트</h5>
+                            <p>50,000</p>
+                        </div>
+                        <div>
+                            <img src="img/LUSH_main_pc_50.png" alt="스파츠리츠먼트">
+                            <h5>스파 트리트먼트</h5>
+                            <p>90,000</p>
+                        </div>
+                        <div>
+                            <img src="img/LUSH_main_pc_52.png" alt="르네상스">
+                            <h5>르네상스</h5>
+                            <p>100,000</p>
+                        </div>
+                        <div>
+                            <img src="img/LUSH_main_pc_54.png" alt="하드데이즈나이트트리트먼트">
+                            <h5>하드데이즈나이트트리트먼트</h5>
+                            <p>170,000</p>
+                        </div>
+                        <!-- space -->
+                    </div>
+                </div>
+            </section>
+            <section class="about_set">
+                <h1 class="hidden">ABOUT</h1>
+                <h2>ABOUT</h2>
+                <div class="about">
+                    <div class="inner">
+                        <div class="about_list">
+                            <img src="img/LUSH_main_pc_09.jpg" alt="스파파우처이용방법">
+                        </div>
+                        <div class="about_list">
+                            <img src="img/LUSH_main_pc_14.jpg" alt="압구정점">
+                        </div>
+                        <div class="about_list">
+                            <img src="img/LUSH_main_pc_11.jpg" alt="결리단길점">
+                        </div>
+                        <!-- space -->
+
+                    </div>
+                </div>
+            </section>
+            <section class="banner_set_2">
+                <h1>나만 알고 싶은 향기</h1>
+                <section class="center slider2">
+                    <div>
+                        <img src="img/LUSH_main_pc_67.png" alt="인터갈라틱">
+                        <h2>인터갈라틱</h2>
+                        <h3>#배쓰밤 #환상적인우주느낌</h3>
+                        <h4>17,000</h4>
+                    </div>
+                    <div>
+                        <img src="img/LUSH_main_pc_61.png" alt="더티보디스프레이">
+                        <h2>더티 보디 스프레이</h2>
+                        <h3>#스테티셀러 #뒤돌아보는행 #재구매각</h3>
+                        <h4>50,000</h4>
+                    </div>
+                    <div>
+                        <img src="img/LUSH_main_pc_70.png" alt="대디오">
+                        <h2>대디-오 100g/250g/500g</h2>
+                        <h3>#오래머무는잔향 #연애시작합니다</h3>
+                        <h4>19,000</h4>
+                    </div>
+                    <div>
+                        <img src="img/LUSH_main_pc_64.png" alt="씨베지터블">
+                        <h2>씨베지터블</h2>
+                        <h3>#바닷소금 #환해초 #바다향기그대로</h3>
+                        <h4>10,000</h4>
+                    </div>
+                    <div>
+                        <img src="img/11.png" alt="트와일라잇버블바">
+                        <h2>트와일라잇 버블 바</h2>
+                        <h3>#버블바 #라벤더 #꿈나라</h3>
+                        <h4>19,000</h4>
+                    </div>
+                    <div>
+                        <img src="img/222.png" alt="레인보우">
+                        <h2>레인보우</h2>
+                        <h3>#버블바 #무지개 #상큼한레몬향기</h3>
+                        <h4>20,000</h4>
+                    </div>
+                    <div>
+                        <img src="img/333.png" alt="뷰티슬립">
+                        <h3>뷰티슬립125g/315g</h3>
+                        <h3>#아름다움의비결 #골저스한영양 #라벤더</h3>
+                        <h4>28,000</h4>
+                    </div>
+                    <div>
+                        <img src="img/4444.png" alt="뉴">
+                        <h2>뉴</h2>
+                        <h3>#착한샴푸 #고체샴푸 #뿌리튼튼</h3>
+                        <h4>18,000</h4>
+                    </div>
+                    <div>
+                        <img src="img/555.png" alt="돈트룩앳미">
+                        <h2>돈트 룩 앳 미</h2>
+                        <h3>#프레쉬마스크 #상큼한레몬팩 #쌀앙갱이</h3>
+                        <h4>25,000</h4>
+                    </div>
+                </section>
+
+            </section>
+            <section class="event_set">
+                <div class="event_set_text">
+                   <div>
+                    <h1 class="hidden">돌아온러쉬타임즈</h1>
+                    <h1>돌아온<br>러쉬타임즈</h1>
+                    <h6>[EVENT]25주년을 축하합니다!</h6>
+                    <p>자세히 보기</p>
+                    </div>
+                </div>
+                <div class="event_set_img">
+                <div>
+                    <img src="img/LUSH_main_pc_77.png" alt="돌아온러쉬타임즈">
+                </div>
+                </div>
+                <!-- sapce -->
+            </section>
+            <section class="board_set">
+                <h1 class="hidden">공지사항</h1>
+                <h1>공지사항</h1>
+                <p>9월 리뷰 이벤트</p>
+                <ul>
+                    <li class="date">2020-04-24</li>
+                    <li class="more">MORE</li>
+                    <!-- :after으로 clear:both -->
+                </ul>
+                <!-- :after으로 clear:both -->
+            </section>
+        </main>
+        <footer id="footer">
+            <div class="top_footer">
+                <div class="inner">
+                    <ul>
+                        <li>스카우트</li>
+                        <li>회사소개</li>
+                        <li>개인정보처리방침</li>
+                        <li>영상정보관리지침</li>
+                        <li>이용약관</li>
+                        <li>개인정보</li>
+                        <!-- space -->
+                    </ul>
                 </div>
             </div>
-        </div>
-        <!-- bg shapes -->
-    </section>
-
-    <!-- what can i do -->
-    <!-- what can i do -->
-    <section class="section position-relative">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-title">WHAT CAN I DO</h2>
-                </div>
-                <div class="col-lg-6">
-                    <div class="d-flex_1">
-                        <div class="mr-lg-1">
-                            <i><img src="images/icon/WEB.png" alt="web"></i>
-                        </div>
-                        <div class="mr-lg-1_text">
-                            <h4>Web Design 웹표준,<br>웹접근성구현</h4>
-                        </div>
+            <div class="bottom_footer">
+                <div class="inner">
+                    <div class="f_logo">
+                        <img src="img/LUSH_main_pc_81.png" alt="하단로고">
+                    </div>
+                    <div class="copyright">
+                        <ul>
+                            <li>주소<span>서울특별시 서초구 서운로 138</span></li>
+                            <li>대표자<span>우미령</span></li>
+                            <li>개인정보보보호책임자<span>우승용</span></li>
+                        </ul>
+                        <p>Copyright©LUSHKOREA co., Ltd. All rights reserved</p>
+                    </div>
+                    <div class="info">
+                        <p>고객센터<span>1644-2357</span></p>
+                        <!-- space-->
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="d-flex_1">
-                        <div class="mr-lg-1">
-                            <i><img src="images/icon/SNS.png" alt="sns"></i>
-                        </div>
-                        <div class="mr-lg-1_text">
-                            <h4>SNS Design 소셜 온라인,<br>SNS 카드뉴스</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="d-flex_1">
-                        <div class="mr-lg-1">
-                            <i><img src="images/icon/BI.png" alt="bi"></i>
-                        </div>
-                        <div class="mr-lg-1_text">
-                            <h4>Branding Design CI,<br>BI 컨셉 가이드, 리플렛 홍보물</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="d-flex_1">
-                        <div class="mr-lg-1">
-                            <i><img src="images/icon/BIOG.png" alt="blog"></i>
-                        </div>
-                        <div class="mr-lg-1_text">
-                            <h4>Shoppingmall Design &<br>Blog 카페24 쇼핑몰, 블로그</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-        <!-- skills -->
-        <section class="section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <h2 class="section-title">Skills</h2>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
-                        <div class="card shadow text-center">
-                            <div class="position-relative rounded-top progress-wrapper" data-color="#fdb157">
-                                <div class="wave" data-progress="80%"></div>
-                            </div>
-                            <div class="card-footer bg-white">
-                                <h4 class="card-title">Photoshap (80%)</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
-                        <div class="card shadow text-center">
-                            <div class="position-relative rounded-top progress-wrapper" data-color="#9473e6">
-                                <div class="wave" data-progress="80%"></div>
-                            </div>
-                            <div class="card-footer bg-white">
-                                <h4 class="card-title">Illustration (80%)</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
-                        <div class="card shadow text-center">
-                            <div class="position-relative rounded-top progress-wrapper" data-color="#bdecf6">
-                                <div class="wave" data-progress="80%"></div>
-                            </div>
-                            <div class="card-footer bg-white">
-                                <h4 class="card-title">HTML (80%)</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
-                        <div class="card shadow text-center">
-                            <div class="position-relative rounded-top progress-wrapper" data-color="#ffbcaa">
-                                <div class="wave" data-progress="70%"></div>
-                            </div>
-                            <div class="card-footer bg-white">
-                                <h4 class="card-title">CSS (70%)</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- /skills -->
-
-        <!-- edcation -->
-        <style>
-            .col-md-4_img {
-                -webkit-animation: rotation 2s infinite linear;
-            }
-
-            @-webkit-keyframes rotation {
-                from {
-                    -webkit-transform: rotate(0deg);
-                }
-
-                to {
-                    -webkit-transform: rotate(359deg);
-                }
-            }
-
-            .col-md-4_1_img {
-                -webkit-animation: rotation 2s infinite linear;
-            }
-
-            @-webkit-keyframes rotation {
-                from {
-                    -webkit-transform: rotate(0deg);
-                }
-
-                to {
-                    -webkit-transform: rotate(359deg);
-                }
-            }
-
-            .col-md-4_2_img {
-                -webkit-animation: rotation 2s infinite linear;
-            }
-
-            @-webkit-keyframes rotation {
-                from {
-                    -webkit-transform: rotate(0deg);
-                }
-
-                to {
-                    -webkit-transform: rotate(359deg);
-                }
-            }
-
-        </style>
-        <section class="section">
-            <div class="container">
-                <div class="row justify-content-around">
-                    <div class="col-12 text-center">
-                        <h2 class="section-title">EDUCATION</h2>
-                    </div>
-                    <div class="col-lg-3 col-md-4 text-center">
-                        <img src="images/experience/icon-1.png" alt="icon" class="col-md-4_img">
-                        <p class="mb-0">2020</p>
-                        <h4 class="mb-0_text">부산IT교육센터<br>반응형 퍼블리싱 & 웹디자인</h4>
-                    </div>
-                    <div class="col-lg-3 col-md-4 text-center">
-                        <img src="images/experience/icon-2.png" alt="icon" class="col-md-4_1_img">
-                        <p class="mb-0">2016</p>
-                        <h4 class="mb-0_text">부산여자대학<br>사회복지재활과 졸업</h4>
-                    </div>
-                    <div class="col-lg-3 col-md-4 text-center">
-                        <img src="images/experience/icon-3.png" alt="icon" class="col-md-4_2_img">
-                        <p class="mb-0">2014</p>
-                        <h4 class="mb-0_text">부산<br>마케팅고등학교 졸업</h4>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- edcation -->
-
-
-
-        <!-- portfolio -->
-        <style>
-            .fromLeftIn {
-                transition: all 1s;
-                transform: translate(0px, 1);
-                opacity: 1;
-            }
-
-            .fromLeftOut {
-                transition: all 1s;
-                transform: translate(100px, 0);
-                opacity: 0;
-            }
-
-        </style>
-
-        <section class="section" id="box3" data-scroll="toggle(.fromLeftIn, .fromLeftOut) once">
-            <div class="container_1">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <h2 class="section-title">PROTFOLIO</h2>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-                        <article class="card shadow">
-                            <img src="images/protfolio/lush/lush1.jpg" alt="러쉬">
-                            <div class="card-body">
-                                <p>Web Design, Photoshop & Illustrator
-                                </p>
-                                <p>LUSH</p>
-                                <p>PROJECT#1</p>
-                                <a href="https://min2026.github.io/project_1/" target="_blank" class="btn btn-xs btn-primary">WEB</a>
-                                <a href="images/protfolio/lush/lush_bx.jpg" class="btn btn-xs btn-primary" target="_blank">BI</a>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-                        <article class="card shadow">
-                            <img src="images/protfolio/matanet/matanet.jpg" alt="메나넷티플랫폼">
-                            <div class="card-body">
-                                <p>Web Design, Photoshop & Illustrator
-                                </p>
-                                <p>METANET</p>
-                                <p>PROJECT#2</p>
-                                <a href="https://min2026.github.io/project2/" target="_blank" class="btn btn-xs btn-primary">WEB</a>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-                        <article class="card shadow">
-                            <img src="images/protfolio/maumsan.jpg" alt="마음산">
-                            <div class="card-body">
-                                <p>Web Design, Photoshop & Illustrator
-                                </p>
-                                <p>MAUMSAN</p>
-                                <p>PROJECT#3</p>
-                                <a href="https://blog.naver.com/min_962026" target="_blank" class="btn btn-xs btn-primary">BLOG</a>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-                        <article class="card shadow">
-                            <img src="images/protfolio/shoppingmall/shoppingmall.jpg" alt="쇼핑몰">
-                            <div class="card-body">
-                                <p>Web Design, Photoshop & cafe24
-                                </p>
-                                <p>M#</p>
-                                <p>PROJECT#4</p>
-                                <a href="http://min2026.cafe24.com/" target="_blank" class="btn btn-xs btn-primary">Shoppingmall</a>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- portfolio -->
-
-
-        <!-- visual -->
-        <style>
-            .fromRightOut {
-                transition: all 1s;
-                transform: translate(0, 0);
-                opacity: 1;
-            }
-
-            .fromRightIn {
-                transition: all 1s;
-                transform: translate(100px, 0);
-                opacity: 0;
-            }
-
-        </style>
-        <section class="portfolio_section" id="box4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <h2 class="section-title">VISUAL</h2>
-                    </div>
-                </div>
-                <div class="row shuffle-wrapper">
-                    <div class="col-lg-5 col-6 mb-4 shuffle-item">
-                        <div class="position-relative rounded hover-wrapper">
-                            <img src="images/visual/maisonkitsune/maisonkitsune1.jpg" alt="메종키츠네">
-                            <a id="demo01" href="#animatedModal1">
-                                <div class="hover-overlay">
-                                    <div class="hover-content">
-                                        <div class="btn btn-light btn-sm">view project</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-6 mb-4 shuffle-item">
-                        <div class="position-relative rounded hover-wrapper">
-                            <img src="images/visual/ediyacoffee/ediya.jpg" alt="이디야커피">
-                            <a id="demo02" href="#animatedModal2">
-                                <div class="hover-overlay">
-                                    <div class="hover-content">
-                                        <div class="btn btn-light btn-sm">view project</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-6 mb-4 shuffle-item">
-                        <div class="position-relative rounded hover-wrapper">
-                            <img src="images/visual/baskin/baskin.jpg" alt="베스킨라빈스">
-                            <a id="demo03" href="#animatedModal3">
-                                <div class="hover-overlay">
-                                    <div class="hover-content">
-                                        <div class="btn btn-light btn-sm">view project</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-6 mb-4 shuffle-item">
-                        <div class="position-relative rounded hover-wrapper">
-                            <img src="images/visual/march/March.jpg" alt="3월">
-                            <a id="demo04" href="#animatedModal4">
-                                <div class="hover-overlay">
-                                    <div class="hover-content">
-                                        <div class="btn btn-light btn-sm">view project</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-6 mb-4 shuffle-item">
-                        <div class="position-relative rounded hover-wrapper">
-                            <img src="images/visual/osulloc/osulloc.jpg" alt="오설록">
-                            <a id="demo05" href="#animatedModal5">
-                                <div class="hover-overlay">
-                                    <div class="hover-content">
-                                        <div class="btn btn-light btn-sm">view project</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-6 mb-4 shuffle-item">
-                        <div class="position-relative rounded hover-wrapper">
-                            <img src="images/visual/winter/winter.jpg" alt="겨울이벤트">
-                            <a id="demo06" href="#animatedModal6">
-                                <div class="hover-overlay">
-                                    <div class="hover-content">
-                                        <div class="btn btn-light btn-sm">view project</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-6 mb-4 shuffle-item">
-                        <div class="position-relative rounded hover-wrapper">
-                            <img src="images/visual/greenpeace/greenpeace1.jpg" alt="그린피스">
-                            <a id="demo07" href="#animatedModal7">
-                                <div class="hover-overlay">
-                                    <div class="hover-content">
-                                        <div class="btn btn-light btn-sm">view project</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-6 mb-4 shuffle-item">
-                        <div class="position-relative rounded hover-wrapper">
-                            <img src="images/visual/cardnews/cardnews1.jpg" alt="카드뉴스">
-                            <a id="demo08" href="#animatedModal8">
-                                <div class="hover-overlay">
-                                    <div class="hover-content">
-                                        <div class="btn btn-light btn-sm">view project</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-6 mb-4 shuffle-item">
-                        <div class="position-relative rounded hover-wrapper">
-                            <img src="images/visual/teamlab/teamlab1.jpg" alt="팀랩보더리스">
-                            <a id="demo09" href="#animatedModal9">
-                                <div class="hover-overlay">
-                                    <div class="hover-content">
-                                        <div class="btn btn-light btn-sm">view project</div>
-                                    </div>    
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- visual -->
-
-
-
-                    <!--DEMO01-->
-                    <div id="animatedModal1">
-                        <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID -->
-                        <div id="btn-close-modal" class="close-animatedModal1">
-                            <img src="images/icon/x.png">
-                        </div>
-
-                        <div class="modal-content" style="padding: 5%">
-                            <img src="images/visual/maisonkitsune/maisonkitsune2.jpg" alt="메종키츠네">
-                            <!--Your modal content goes here-->
-                        </div>
-                    </div>
-
-                    <!--DEMO02-->
-                    <div id="animatedModal2">
-                        <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID -->
-                        <div id="btn-close-modal" class="close-animatedModal2">
-                            <img src="images/icon/x.png">
-                        </div>
-
-                        <div class="modal-content" style="    padding-top: 5%;">
-                            <img src="images/visual/ediyacoffee/ediya2.jpg" alt="이디야커피">
-                            <!--Your modal content goes here-->
-                        </div>
-                    </div>
-
-                    <!--DEMO03-->
-                    <div id="animatedModal3">
-                        <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID -->
-                        <div id="btn-close-modal" class="close-animatedModal3">
-                            <img src="images/icon/x.png">
-                        </div>
-
-                        <div class="modal-content" style="padding-top: 5%">
-                            <img src="images/visual/baskin/baskin2.jpg" alt="베스킨라빈스">
-                            <!--Your modal content goes here-->
-                        </div>
-                    </div>
-
-                    <!--DEMO04-->
-                    <div id="animatedModal4">
-                        <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID -->
-                        <div id="btn-close-modal" class="close-animatedModal4">
-                            <img src="images/icon/x.png">
-                        </div>
-
-                        <div class="modal-content" style="padding: 5%">
-                            <img src="images/visual/march/March2.jpg" alt="3월">
-                            <!--Your modal content goes here-->
-                        </div>
-                    </div>
-
-                    <!--DEMO05-->
-                    <div id="animatedModal5">
-                        <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID -->
-                        <div id="btn-close-modal" class="close-animatedModal5">
-                            <img src="images/icon/x.png">
-                        </div>
-                        <div class="modal-content" style="padding-top: 5%">
-                            <img src="images/visual/osulloc/osulloc2.jpg" alt="오설록">
-                            <!--Your modal content goes here-->
-                        </div>
-                    </div>
-
-                    <!--DEMO06-->
-                    <div id="animatedModal6">
-                        <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID -->
-                        <div id="btn-close-modal" class="close-animatedModal6">
-                            <img src="images/icon/x.png">
-                        </div>
-                        <div class="modal-content" style="padding-top: 5%;">
-                            <img src="images/visual/winter/winter2.jpg" alt="겨울이벤트">
-                            <!--Your modal content goes here-->
-                        </div>
-                    </div>
-
-                    <!--DEMO07-->
-                    <div id="animatedModal7">
-                        <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID -->
-                        <div id="btn-close-modal" class="close-animatedModal7">
-                            <img src="images/icon/x.png">
-                        </div>
-                        <div class="modal-content" style="padding-top: 5%">
-                            <img src="images/visual/greenpeace/greenpeace2.jpg" alt="그린피스">
-                            <!--Your modal content goes here-->
-                        </div>
-                    </div>
-
-                    <!--DEMO08-->
-                    <div id="animatedModal8">
-                        <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID -->
-                        <div id="btn-close-modal" class="close-animatedModal8">
-                            <img src="images/icon/x.png">
-                        </div>
-
-                        <div class="modal-content" style="padding: 5%">
-                            <img src="images/visual/cardnews/cardnews2.jpg" alt="카드뉴스">
-                            <!--Your modal content goes here-->
-                        </div>
-                    </div>
-                    
-                    <!--DEMO09-->
-                    <div id="animatedModal9">
-                        <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID -->
-                        <div id="btn-close-modal" class="close-animatedModal9">
-                            <img src="images/icon/x.png">
-                        </div>
-
-                        <div class="modal-content" style="padding: 5%">
-                            <img src="images/visual/teamlab/teamlab2.jpg" alt="팀랩보더리스">
-                            <!--Your modal content goes here-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--DEMO END-->
-
-        <!-- footer -->
-        <footer class="bg-dark footer-section" id="box5">
-            <div class="footer_section">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h5 class="col-md-4_text">Email</h5>
-                            <p class="text-white paragraph-lg font-secondary">min_226@naver.com</p>
-                        </div>
-                        <div class="col-md-4">
-                            <h5 class="col-md-4_text">Phone</h5>
-                            <p class="text-white paragraph-lg font-secondary">+82 010-4760-8330</p>
-                        </div>
-                        <div class="col-md-4">
-                            <h5 class="col-md-4_text">Address</h5>
-                            <p class="text-white paragraph-lg font-secondary">부산광역시 부산진구 서면문화로 59</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="border-top text-center border-dark py-5">
-                <p class="mb-0 text-light">Copyright 2020. leeminju All right reserved</p>
             </div>
         </footer>
-        <!-- /footer -->
+    </div>
 
-        <!-- jQuery -->
-        <script src="plugins/jQuery/jquery.min.js"></script>
-        <!-- Bootstrap JS -->
-        <script src="plugins/bootstrap/bootstrap.min.js"></script>
-        <!-- slick slider -->
-        <script src="plugins/slick/slick.min.js"></script>
-        <!-- filter -->
-        <script src="plugins/shuffle/shuffle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.0.js" type="text/javascript"></script>
+    <script>
+        var j220 = jQuery.noConflict();
 
-        <!-- Main Script -->
-        <script src="js/script.js"></script>
+    </script>
+    <script src="js/slick.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        j220(document).on('ready', function() {
 
-        <script src="js/aos.js"></script>
 
-        <script src="js/main.js"></script>
-        <script src="js/jquery.min.js"></script>
-        <script src="js/animatedModal.js"></script>
 
-        <script>
-            
-            //demo 01
-            $("#demo01").animatedModal();
+            j220(".regular").slick({
+                dots: true,
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                responsive: [ // 반응형 웹 구현 옵션
+                    {
+                        breakpoint: 1279, //화면 사이즈 1279px
+                        settings: {
+                            //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+                            slidesToShow: 2
+                        }
+                    },
+                    {
+                        breakpoint: 680, //화면 사이즈 680px
+                        settings: {
+                            //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+                            slidesToShow: 1
+                        }
+                    }
+                ]
+            });
+            j220(".center").slick({
+                dots: true,
+                infinite: true,
+                centerMode: true,
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                responsive: [ // 반응형 웹 구현 옵션
+                    {
+                        breakpoint: 1279, //화면 사이즈 1279px
+                        settings: {
+                            //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+                            slidesToShow: 2
+                        }
+                    },
+                    {
+                        breakpoint: 680, //화면 사이즈 680px
+                        settings: {
+                            //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+                            slidesToShow: 1
+                        }
+                    }
+                ]
+            });
 
-            //demo 02
-            $("#demo02").animatedModal();
 
-            //demo 03
-            $("#demo03").animatedModal();
+        });
 
-            //demo 04
-            $("#demo04").animatedModal();
+    </script>
 
-            //demo 05
-            $("#demo05").animatedModal();
+</body>
 
-            //demo 06
-            $("#demo06").animatedModal();
-
-            //demo 07
-            $("#demo07").animatedModal();
-
-            //demo 08
-            $("#demo08").animatedModal();
-            
-            //demo 09
-            $("#demo09").animatedModal();
-
-        </script>
-        
-    </body> 
 </html>
